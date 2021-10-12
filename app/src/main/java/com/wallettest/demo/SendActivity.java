@@ -205,5 +205,9 @@ public class SendActivity extends BaseActivity {
     }
 
 
+    @OnClick(R.id.btn_back)
+    public void onBackClicked() {
+        finish();
 
+    }
 }

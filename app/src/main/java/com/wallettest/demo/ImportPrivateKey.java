@@ -38,10 +38,15 @@ public class ImportPrivateKey extends BaseActivity {
     protected void initData() {
 
     }
+    @OnClick(R.id.btn_back)
+    public void onBackClicked() {
+        finish();
 
+    }
 
     @OnClick(R.id.btn_import)
     public void onViewClicked() {
+
         importPrivateKey();
 
     }
@@ -49,6 +54,11 @@ public class ImportPrivateKey extends BaseActivity {
     private void importPrivateKey() {
         checkInput();
         String privateKey = etPrivateKey.getText().toString();
+        if(privateKey.equals("")){
+            Toast.makeText(this, "Please Input Private Key", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Credentials credentials = Credentials.create(privateKey);
         ECKeyPair ecKeyPair = credentials.getEcKeyPair();
         KeyStoreUtils.genKeyStore2Files(ecKeyPair);
@@ -60,8 +70,8 @@ public class ImportPrivateKey extends BaseActivity {
         String address = credentials.getAddress();
         SharedPrefsUtil.putValue(this,"Address:" + App.GLOBAL_USERNAME, address);
         Toast.makeText(this, "Imported Successfully", Toast.LENGTH_SHORT).show();
-        finish();
-//        btnImport.setVisibility(View.INVISIBLE);
+//        finish();
+        btnImport.setVisibility(View.INVISIBLE);
 
     }
 
